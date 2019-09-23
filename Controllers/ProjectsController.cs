@@ -107,6 +107,45 @@ namespace BugTrackerProject.Controllers
             }
             return RedirectToAction("Index");
         }
+        public ActionResult RemoveUsersFromProjects(int projectId)
+        {
+            var project = projectManager.FindProject(projectId);
+            if (project == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var developerList = db.ProjectUsers.Where(pu => pu.ProjectId == project.Id);
+            ViewBag.devList = new MultiSelectList(developerList, "Id", "UserName");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult RemoveUsersFromProjects(int projectId, string[] devList)
+        {
+            var project = projectManager.FindProject(projectId);
+            if (project == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var developerList = db.ProjectUsers.Where(pu => pu.ProjectId == project.Id);
+            ViewBag.devList = new MultiSelectList(developerList, "Id", "UserName");
+            if (devList != null && devList.Count() > 0)
+            {
+                foreach (var userId in devList)
+                {
+                    var user = userManagerHelper.FindUser(userId);
+                    if (user != null)
+                    {
+                        ProjectUsers removeProjectUser = db.ProjectUsers.FirstOrDefault(pu => pu.ApplicationUserId == userId);
+                        if(removeProjectUser != null)
+                        {
+                            db.ProjectUsers.Remove(removeProjectUser);
+                            db.SaveChanges();
+                        }
+                    }
+                }
+            }
+            return View();
+        }
         // GET: Projects/Edit/5
         public ActionResult Edit(int? id)
         {
