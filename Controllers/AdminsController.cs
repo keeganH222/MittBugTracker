@@ -106,5 +106,6 @@ namespace BugTrackerProject.Controllers
             ViewBag.Message = returnedString.ToString();
             return View();
         }
+
     }
 }

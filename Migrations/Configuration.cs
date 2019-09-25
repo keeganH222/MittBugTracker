@@ -31,7 +31,7 @@ namespace BugTrackerProject.Migrations
             context.TicketTypes.AddOrUpdate(new TicketType { Name = "System" }, new TicketType { Name = "Program" }, 
             new TicketType { Name = "Method" }, new TicketType { Name = "User Interface" });
             context.TicketStatuses.AddOrUpdate(new TicketStatus { Name = "Created" }, new TicketStatus { Name = "Assigned" },
-                new TicketStatus { Name = "Developing" }, new TicketStatus { Name = "Testing" }, new TicketStatus { Name = "Finished" });
+                new TicketStatus { Name = "Working on" }, new TicketStatus { Name = "Testing" }, new TicketStatus { Name = "Resolved" });
             context.TicketPriorities.AddOrUpdate(new TicketPriority { Name = "low" }, new TicketPriority { Name = "Medium" }, new TicketPriority { Name = "High" });
             ApplicationUser pmUser = new ApplicationUser { Email = "Keegan@test.com", UserName = "Keegan@test.com" };
             ApplicationUser dUser = new ApplicationUser { Email = "Joe@test.com", UserName = "Joe@test.com" };
