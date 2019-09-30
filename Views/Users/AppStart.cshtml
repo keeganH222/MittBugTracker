@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "AppStart";
+}
+
+<h2>App Start</h2>
+
+<div>
+    <h3>Log in as Demo?</h3>
+    @using (Html.BeginForm())
+    {
+        <input type="button" value="Demo User" />
+    }
+    @Html.ActionLink("List of tickets", "ListOfTickets")
+</div>
+

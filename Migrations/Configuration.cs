@@ -37,6 +37,7 @@ namespace BugTrackerProject.Migrations
             ApplicationUser dUser = new ApplicationUser { Email = "Joe@test.com", UserName = "Joe@test.com" };
             ApplicationUser SUser = new ApplicationUser { Email = "Bob@test.com", UserName = "Bob@test.com" };
             ApplicationUser AUser = new ApplicationUser { Email = "Admin@test.com", UserName = "Admin@test.com" };
+            ApplicationUser demoUser = new ApplicationUser { Email = "DemoUser40@outlook.com", UserName = "DemoUser40@outlook.com" };
             if (!context.Users.Any(c => c.UserName == pmUser.UserName))
             {
                 UserManager.Create(pmUser, "EntityFr@mew0rk");
@@ -46,7 +47,15 @@ namespace BugTrackerProject.Migrations
                 UserManager.AddToRole(pmUser.Id, "Project Manager");
                 UserManager.AddToRole(dUser.Id, "Developer");
                 UserManager.AddToRole(SUser.Id, "Submitter");
-                UserManager.AddToRole(AUser.Id, "Developer");
+                UserManager.AddToRole(AUser.Id, "Admin");
+            }
+            if(!context.Users.Any(u => u.UserName == demoUser.UserName))
+            {
+                UserManager.Create(demoUser, "EntityFr@mew0rk");
+                UserManager.AddToRole(demoUser.Id, "Project Manager");
+                UserManager.AddToRole(demoUser.Id, "Developer");
+                UserManager.AddToRole(demoUser.Id, "Submitter");
+                UserManager.AddToRole(demoUser.Id, "Admin");
             }
         }
     }

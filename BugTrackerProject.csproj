@@ -179,9 +179,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201909191855007_initialCreate.cs" />
-    <Compile Include="Migrations\201909191855007_initialCreate.Designer.cs">
-      <DependentUpon>201909191855007_initialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201909251848364_initialCreate.cs" />
+    <Compile Include="Migrations\201909251848364_initialCreate.Designer.cs">
+      <DependentUpon>201909251848364_initialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -325,12 +325,18 @@
     <Content Include="Views\Tickets\Details.cshtml" />
     <Content Include="Views\Tickets\Edit.cshtml" />
     <Content Include="Views\Tickets\Index.cshtml" />
+    <Content Include="Views\Users\CreateTicket.cshtml" />
+    <Content Include="Views\Users\AssignUserToTicket.cshtml" />
+    <Content Include="Views\Users\EditTicket.cshtml" />
+    <Content Include="Views\Users\AddComment.cshtml" />
+    <Content Include="Views\Users\AddAttachment.cshtml" />
+    <Content Include="Views\Users\ListOfTickets.cshtml" />
+    <Content Include="Views\Users\AppStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Upload\" />
     <Folder Include="Content\layoutImages\" />
     <Folder Include="Views\Admins\" />
-    <Folder Include="Views\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -346,8 +352,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201909191855007_initialCreate.resx">
-      <DependentUpon>201909191855007_initialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201909251848364_initialCreate.resx">
+      <DependentUpon>201909251848364_initialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

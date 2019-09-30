@@ -12,7 +12,7 @@ namespace BugTrackerProject.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
+                        Name = c.String(nullable: false, maxLength: 100),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -55,8 +55,8 @@ namespace BugTrackerProject.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Title = c.String(nullable: false, maxLength: 3),
-                        Description = c.String(),
+                        Title = c.String(nullable: false, maxLength: 100),
+                        Description = c.String(nullable: false, maxLength: 100),
                         Created = c.DateTime(nullable: false),
                         Updated = c.Boolean(nullable: false),
                         ProjectId = c.Int(nullable: false),
