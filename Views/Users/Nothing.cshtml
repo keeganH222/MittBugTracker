@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewBag.Title = "Nothing";
+}
+
+<h2>Nothing</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AssignToUser.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OwnerUser.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Project.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TicketPriority.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TicketStatus.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TicketType.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Updated)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssignToUser.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OwnerUser.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketPriority.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketStatus.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Updated)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+
+    public ActionResult ListOfTickets()
+    {
+    var ticketList = db.Tickets.ToList();
+    var userId = User.Identity.GetUserId();
+    var demoUser = userManagerHelper.FindUser(userId);
+    List
+    <string>
+        input = new List<string>
+            ();
+            if (User.Identity.AuthenticationType == "Admin" || demoUser.UserName == "DemoUser40@outlook.com")
+            {
+            ViewBag.Demo = true;
+            input.Add(userId);
+            input.Add("Admin");
+            ViewBag.conditionInput = input;
+            return View(ticketList);
+            }
+            else if (User.Identity.AuthenticationType == "Project Manager")
+            {
+            input.Add(userId);
+            input.Add("Project Manager");
+            ViewBag.conditionInput = input;
+            var myProjects = (from projectUser in db.ProjectUsers
+            where projectUser.ApplicationUserId == userId
+            select projectUser).ToList();
+            var tickets = (from ticket in ticketList
+            join project in myProjects
+            on ticket.ProjectId equals project.Id
+            select ticket).ToList();
+            return View(tickets);
+            }
+            else if (User.Identity.AuthenticationType == "Developer")
+            {
+            input.Add(userId);
+            input.Add("Developer");
+            ViewBag.conditionInput = input;
+            var myProjects = (from projectUser in db.ProjectUsers
+            where projectUser.ApplicationUserId == userId
+            select projectUser).ToList();
+            var tickets = (from ticket in ticketList
+            join project in myProjects
+            on ticket.ProjectId equals project.Id
+            select ticket).ToList();
+            return View(tickets);
+            }
+            else if (User.Identity.AuthenticationType == "Submitter")
+            {
+            input.Add(userId);
+            input.Add("Submitter");
+            ViewBag.conditionInput = input;
+            var user = userManagerHelper.FindUser(userId);
+            if (user == null)
+            {
+            return HttpNotFound();
+            }
+            var tickets = user.OwnedTickets;
+            ViewBag.Submitter = true;
+            return View(tickets);
+            }
+            return HttpNotFound();
+            }
