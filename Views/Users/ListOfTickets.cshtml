@@ -13,70 +13,66 @@
     </p>
 }
 
-<input type="hidden" value="@ViewBag.conditionInput" id="hiddenId"/>
+<input type="hidden" value="@ViewBag.conditionInput" id="hiddenId" />
 
 <table id="userTable">
     <thead>
         <tr>
-            <th> Title </th>
-            <th> Description </th>
-            <th> Created </th>
-            <th> Updated</th>
-            <th> ProjectName </th>
-            <th> Ticket_Type_Name </th>
-            <th> Ticket_Priority_Name </th>
-            <th> Ticket_Status_Name </th>
-            <th> Assigned_Developer </th>
-            <th> Ticket_Owner </th>
+            <th>@Html.DisplayNameFor(model => model.Title)</th>
+            <th> @Html.DisplayNameFor(model => model.Created)</th>
+            <th> @Html.DisplayNameFor(model => model.Updated)</th>
+            <th> @Html.DisplayName("Project")</th>
+            <th> @Html.DisplayName("Ticket Type")</th>
+            <th> @Html.DisplayName("Ticket Priority")</th>
+            <th> @Html.DisplayName("Ticket Status")</th>
+            <th> @Html.DisplayName("Developer")</th>
+            <th> @Html.DisplayName("Ticket Owner")</th>
+            <th></th>
         </tr>
     </thead>
+    <tbody>
+
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <th>@Html.DisplayFor(modelItem => item.Title)</th>
+                    <th>@Html.DisplayFor(modelItem => item.Created)</th>
+                    <th>@Html.DisplayFor(modelItem => item.Updated)</th>
+                    <th>@Html.DisplayFor(modelItem => item.Project.Name)</th>
+                    <th>@Html.DisplayFor(modelItem => item.TicketPriority.Name)</th>
+                    <th>@Html.DisplayFor(modelItem => item.TicketType.Name)</th>
+                    <th>@Html.DisplayFor(modelItem => item.TicketStatus.Name)</th>
+                    <th>@Html.DisplayFor(modelItem => item.AssignToUser.UserName)</th>
+                    <th>@Html.DisplayFor(modelItem => item.OwnerUser.UserName)</th>
+                    <th>@Html.ActionLink("Ticket Details", "TicketDetails", new { ticketId = item.Id })</th>
+                </tr>
+            }
+        }
+    </tbody>
     <tfoot>
         <tr>
-            <th> Title </th>
-            <th> Description </th>
-            <th> Created </th>
-            <th> Updated</th>
-            <th> Project Name </th>
-            <th> Ticket_Type_Name </th>
-            <th> Ticket_Priority_Name </th>
-            <th> Ticket_Status_Name </th>
-            <th> Assigned_Developer </th>
-            <th> Ticket_Owner </th>
+            <th>@Html.DisplayNameFor(model => model.Title)</th>
+            <th> @Html.DisplayNameFor(model => model.Created)</th>
+            <th> @Html.DisplayNameFor(model => model.Updated)</th>
+            <th> @Html.DisplayName("Project")</th>
+            <th> @Html.DisplayName("Ticket Type")</th>
+            <th> @Html.DisplayName("Ticket Priority")</th>
+            <th> @Html.DisplayName("Ticket Status")</th>
+            <th> @Html.DisplayName("Developer")</th>
+            <th> @Html.DisplayName("Ticket Owner")</th>
+            <th></th>
         </tr>
     </tfoot>
-    <tbody id="tBody">
-
-    </tbody>
 </table>
 
 
 <script>
-    $.noConflict();
+
     $(document).ready(function () {
-        $('#userTable').dataTable({
-            "processing": true,
-            "serverSide": true,
-            "info": true,
-            "stateSave": true,
-            "lengthMenu": [[10, 20, 30,40,50,60,70,80,90,100 -1], [10, 20, 30,40,50,60,70,80,90,100, "All"]],
-            "ajax":{
-                "url": "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Users/AjaxGetJsonData",
-                "type": "POST"
-            },
-            "columns": [
-                { "data": "Title", "orderable" : true },
-                { "data": "Description", "orderable": false },
-                { "data": "Created", "orderable": true },
-                { "data": "Updated", "orderable": true },
-                { "data": "Project Name", "orderable": true },
-                { "data": "Ticket Type Name", "orderable": true },
-                { "data": "Ticket Priority Name", "orderable": true },
-                { "data": "Ticket Status Name", "orderable": true },
-                { "data": "Assigned Developer", "orderable": true },
-                { "data": "Ticket Owner", "orderable": true }
-            ],
-            "order": [[0, "asc"]]
-        });
+        $.noConflict();
+        $('#userTable').dataTable();
     });
 </script>
 
