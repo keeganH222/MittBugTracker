@@ -221,7 +221,7 @@ namespace BugTrackerProject.Controllers
                 newAttachment.TicketId = ticket.Id;
                 newAttachment.ApplicationUserId = userId;
             }
-            return RedirectToAction("ListOfTickets");
+            return RedirectToAction("EditTicket", new { ticketId = ticketId });
         }
         [Authorize]
         public ActionResult ListOfTickets()

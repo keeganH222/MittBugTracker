@@ -46,7 +46,7 @@
                     <th>@Html.DisplayFor(modelItem => item.TicketStatus.Name)</th>
                     <th>@Html.DisplayFor(modelItem => item.AssignToUser.UserName)</th>
                     <th>@Html.DisplayFor(modelItem => item.OwnerUser.UserName)</th>
-                    <th>@Html.ActionLink("Ticket Details", "TicketDetails", new { ticketId = item.Id })</th>
+                    <th>@Html.ActionLink("Ticket Details", "EditTickets", new { ticketId = item.Id })</th>
                 </tr>
             }
         }
